@@ -1,0 +1,25 @@
+'use strict'
+const User = use("App/Models/User")
+class UserController {
+        
+    async register({ request}){
+    
+        const {email ,password} = request.all();
+        
+        await User.create({
+            email : email,
+            password : password,
+            username: email
+        })
+        return this.login(...arguments)
+    }
+
+    async login({request,auth}){
+    
+        const {email,password} = request.all();
+    
+        const token = await auth.attempt(email,password)
+        return token;
+    }
+}
+module.exports = UserController

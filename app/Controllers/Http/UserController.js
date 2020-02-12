@@ -1,9 +1,9 @@
 'use strict'
 const User = use("App/Models/User")
+
 class UserController {
         
-    async register({ request}){
-    
+    async register({ request ,auth ,response}){
         const {email ,password} = request.all();
         
         await User.create({
@@ -20,6 +20,10 @@ class UserController {
     
         const token = await auth.attempt(email,password)
         return token;
+    }
+    async getUsers({request,response}){
+        const users = User.request.all()
+        return response.json(users)
     }
 }
 module.exports = UserController
